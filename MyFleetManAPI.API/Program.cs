@@ -11,12 +11,16 @@ using MyFleetManAPI.Infrastructure.Data;
 using MyFleetManAPI.Infrastructure.Identity;
 using MyFleetManAPI.Infrastructure.Model;
 using System.Text;
+using AutoMapper;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add infrastructure
 builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -56,6 +60,7 @@ builder.Services.AddSwaggerGen();
 
 // Add application-level services
 builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<ICityService, CityService>();
 
 
 var app = builder.Build();

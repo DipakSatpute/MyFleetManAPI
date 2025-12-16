@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace MyFleetManAPI.Application.DTOs.CityMaster
 {
-    public class CityDto:CreateDto
+    public class UpdateCityDto : UpdateDto
     {
         public string CityName { get; set; } = string.Empty;
         public int IsMainBranch { get; set; }
         public int IsServingCity { get; set; }
-
     }
 }

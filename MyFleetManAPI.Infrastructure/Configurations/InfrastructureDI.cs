@@ -29,6 +29,7 @@ namespace MyFleetManAPI.Infrastructure
 
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IJwtTokenRepository, JwtTokenRepository>();
+            services.AddScoped<ICityRepository, CityRepository>();
 
             return services;
         }
