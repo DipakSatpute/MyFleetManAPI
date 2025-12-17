@@ -10,6 +10,8 @@ namespace MyFleetManAPI.Infrastructure.Contracts
     public interface ICityRepository
     {
         Task<TblCitymaster> AddAsync(TblCitymaster city);
-
+        Task<List<TblCitymaster>> GetAllCityAsync();
+        Task<TblCitymaster> UpdateCityAsync(TblCitymaster city);
+        Task<TblCitymaster?> GetCityByIdAsync(int cityId);
     }
 }

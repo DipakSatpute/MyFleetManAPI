@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MyFleetManAPI.Application.Implementations
 {
-    public class CityService :ICityService
+    public class CityService : ICityService
     {
         private readonly IMapper _mapper;
         private readonly ICityRepository _cityRepository;
@@ -23,17 +23,39 @@ namespace MyFleetManAPI.Application.Implementations
         }
         public async Task<UpdateCityDto> CreateAsync(CreateCityDto dto)
         {
-            // STEP 1: Map DTO → Domain Entity
             var city = _mapper.Map<TblCitymaster>(dto);
-
-            // STEP 2: Call Infrastructure Repository (returns Entity)
             var savedEntity = await _cityRepository.AddAsync(city);
-
-            // STEP 3: Map Domain Entity → DTO
             var result = _mapper.Map<UpdateCityDto>(savedEntity);
+            return result;
+        }
 
+        public async Task<List<UpdateCityDto>> GetAllCityAsync()
+        {
+            var cityEntity = await _cityRepository.GetAllCityAsync();
+            var result = _mapper.Map<List<UpdateCityDto>>(cityEntity);
             return result;
 
         }
+        public async Task<UpdateCityDto> UpdateCityAsync(UpdateCityDto dto)
+        {
+            var existingEntity = await _cityRepository.GetCityByIdAsync(dto.CityId);
+            if (existingEntity == null)
+            {
+                return null;
+            }
+
+            _mapper.Map(dto, existingEntity);
+            var updatedEntity = await _cityRepository.UpdateCityAsync(existingEntity);
+            var result = _mapper.Map<UpdateCityDto>(updatedEntity);
+            return result;
+
+        }
+        public async Task<UpdateCityDto?> GetCityByIdAsync(int cityId)
+        {
+            var entity = await _cityRepository.GetCityByIdAsync(cityId);
+            return entity == null ? null : _mapper.Map<UpdateCityDto>(entity);
+           
+        }
+
     }
 }

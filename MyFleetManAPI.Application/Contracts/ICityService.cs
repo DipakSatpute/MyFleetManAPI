@@ -10,7 +10,10 @@ namespace MyFleetManAPI.Application.Contracts
 {
     public interface ICityService
     {
-       Task<UpdateCityDto> CreateAsync(CreateCityDto dto);
-        
+        Task<UpdateCityDto> CreateAsync(CreateCityDto dto);
+        Task<List<UpdateCityDto>> GetAllCityAsync();
+        Task<UpdateCityDto> UpdateCityAsync(UpdateCityDto dto);
+        Task<UpdateCityDto?> GetCityByIdAsync(int cityId);
+
     }
 }

@@ -17,7 +17,10 @@ namespace MyFleetManAPI.Application.Mappings.CityMapper
         {
             CreateMap<CreateCityDto, TblCitymaster>();
 
-            CreateMap<TblCitymaster,UpdateCityDto>();
+            CreateMap<TblCitymaster, UpdateCityDto>();
+
+            CreateMap<UpdateCityDto, TblCitymaster>()
+                .ForAllMembers(opt => opt.Condition((src, dest, srcValue) => srcValue != null));
         }
     }
 }

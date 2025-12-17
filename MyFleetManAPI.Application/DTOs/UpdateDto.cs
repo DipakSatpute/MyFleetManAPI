@@ -8,7 +8,6 @@ namespace MyFleetManAPI.Application.DTOs
 {
     public class UpdateDto
     {
-        public int Id { get; set; }
         public int Active { get; set; }
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }

@@ -12,6 +12,7 @@ using MyFleetManAPI.Infrastructure.Identity;
 using MyFleetManAPI.Infrastructure.Model;
 using System.Text;
 using AutoMapper;
+using MyFleetManAPI.API.Filters;
 
 
 
@@ -54,9 +55,13 @@ builder.Services.AddAuthentication(options =>
 });
 
 // Register Swagger
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.DocumentFilter<HideRequestBodySchemaFilter>();
+});
 
 // Add application-level services
 builder.Services.AddScoped<ILoginService, LoginService>();
@@ -65,15 +70,19 @@ builder.Services.AddScoped<ICityService, CityService>();
 
 var app = builder.Build();
 
-
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+   
     app.UseSwagger();
-    app.UseSwaggerUI();
+    //app.UseSwaggerUI();
+    //app.MapGet("/", () => Results.Redirect("/swagger"));
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API");
+        c.RoutePrefix = string.Empty; // <--- THIS MAKES SWAGGER DEFAULT PAGE
+    });
 }
-
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
