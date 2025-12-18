@@ -2,6 +2,7 @@
 using AutoMapper;
 using MyFleetManAPI.Application.DTOs.CityMaster;
 using MyFleetManAPI.Application.DTOs.Employee;
+using MyFleetManAPI.Domain.Entities;
 using MyFleetManAPI.Infrastructure.Model;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,11 @@ namespace MyFleetManAPI.Application.Mappings.CityMapper
     {
         public CityMappingProfile()
         {
-            CreateMap<CreateCityDto, TblCitymaster>();
+            CreateMap<CreateCityDto, CityMaster>();
 
-            CreateMap<TblCitymaster, UpdateCityDto>();
+            CreateMap<CityMaster, UpdateCityDto>();
 
-            CreateMap<UpdateCityDto, TblCitymaster>()
+            CreateMap<UpdateCityDto, CityMaster>()
                 .ForAllMembers(opt => opt.Condition((src, dest, srcValue) => srcValue != null));
         }
     }

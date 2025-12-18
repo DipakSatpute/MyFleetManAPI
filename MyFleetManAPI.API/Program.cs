@@ -58,10 +58,10 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSwaggerGen(c =>
-{
-    c.DocumentFilter<HideRequestBodySchemaFilter>();
-});
+//builder.Services.AddSwaggerGen(c =>
+//{
+//    c.DocumentFilter<HideRequestBodySchemaFilter>();
+//});
 
 // Add application-level services
 builder.Services.AddScoped<ILoginService, LoginService>();
@@ -81,11 +81,12 @@ if (app.Environment.IsDevelopment())
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API");
         c.RoutePrefix = string.Empty; // <--- THIS MAKES SWAGGER DEFAULT PAGE
+        c.InjectStylesheet("/swagger-custom.css");
     });
 }
 
 app.UseHttpsRedirection();
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 app.Run();

@@ -1,0 +1,4 @@
+﻿/* Hide the Schemas (Models) section */
+.models {
+    display: none !important;
+}

@@ -31,22 +31,32 @@ namespace MyFleetManAPI.Infrastructure.Implementations
 
         public async Task<TblCitymaster> UpdateCityAsync(TblCitymaster city)
         {
-            var cityToUpdate = await _context.TblCitymasters.Where(d => d.CityId == city.CityId).FirstOrDefaultAsync();
-            if (cityToUpdate != null)
+            try
             {
-                cityToUpdate.CityName = city.CityName;
-                cityToUpdate.IsMainBranch = city.IsMainBranch;
-                cityToUpdate.IsServingCity = city.IsServingCity;
-                cityToUpdate.Active = city.Active;
-                cityToUpdate.ModifiedBy = city.ModifiedBy;
-                cityToUpdate.ModifiedOn = DateTime.Now;
                 await _context.SaveChangesAsync();
-                return cityToUpdate;
+                return city;
             }
-            else
+            catch (Exception)
             {
-                return null;
+
+                throw;
             }
+            //var cityToUpdate = await _context.TblCitymasters.Where(d => d.CityId == city.CityId).FirstOrDefaultAsync();
+            //if (cityToUpdate != null)
+            //{
+            //    cityToUpdate.CityName = city.CityName;
+            //    cityToUpdate.IsMainBranch = city.IsMainBranch;
+            //    cityToUpdate.IsServingCity = city.IsServingCity;
+            //    cityToUpdate.Active = city.Active;
+            //    cityToUpdate.ModifiedBy = city.ModifiedBy;
+            //    cityToUpdate.ModifiedOn = DateTime.Now;
+            //    await _context.SaveChangesAsync();
+            //    return cityToUpdate;
+            //}
+            //else
+            //{
+            //    return null;
+            //}
         }
         public async Task<TblCitymaster?> GetCityByIdAsync(int cityId)
         {

@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MyFleetManAPI.Domain\MyFleetManAPI.Domain.csproj" />
     <ProjectReference Include="..\MyFleetManAPI.Infrastructure\MyFleetManAPI.Infrastructure.csproj" />
   </ItemGroup>
 
