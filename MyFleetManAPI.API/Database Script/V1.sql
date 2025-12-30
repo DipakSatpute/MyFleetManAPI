@@ -70,3 +70,19 @@ CREATE TABLE [dbo].[tbl_employee](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
+
+CREATE TABLE [dbo].[tbl_errorlogs](
+	[error_id] [bigint] IDENTITY(1,1) NOT NULL,
+	[controller] [varchar](200) NULL,
+	[action] [varchar](200) NULL,
+	[path] [varchar](max) NULL,
+	[method] [varchar](300) NULL,
+	[message] [varchar](max) NULL,
+	[created_by] [int] NULL,
+    [created_on] [datetime] default(GETDATE()),
+ CONSTRAINT [PK_tbl_errorlogs] PRIMARY KEY CLUSTERED 
+(
+	[error_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO

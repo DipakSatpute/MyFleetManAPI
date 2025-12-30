@@ -18,6 +18,10 @@
       {
          "Name": "[dbo].[tbl_employee]",
          "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbl_errorlogs]",
+         "ObjectType": 0
       }
    ],
    "UiHint": null,

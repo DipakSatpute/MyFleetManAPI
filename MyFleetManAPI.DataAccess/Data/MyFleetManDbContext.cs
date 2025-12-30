@@ -16,6 +16,8 @@ public partial class MyFleetManDbContext : DbContext
 
     public virtual DbSet<TblEmployee> TblEmployees { get; set; }
 
+    public virtual DbSet<TblErrorlog> TblErrorlogs { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TblEmployee>(entity =>
@@ -167,6 +169,44 @@ public partial class MyFleetManDbContext : DbContext
             entity.Property(e => e.UanNo)
                 .HasMaxLength(50)
                 .HasColumnName("uan_no");
+        });
+
+        modelBuilder.Entity<TblErrorlog>(entity =>
+        {
+            entity.HasKey(e => e.ErrorId).HasFillFactor(90);
+
+            entity.ToTable("tbl_errorlogs");
+
+            entity.Property(e => e.ErrorId).HasColumnName("error_id");
+            entity.Property(e => e.Action)
+                .HasMaxLength(200)
+                .IsUnicode(false)
+                .HasColumnName("action");
+            entity.Property(e => e.Controller)
+                .HasMaxLength(200)
+                .IsUnicode(false)
+                .HasColumnName("controller");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.CreatedOn)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("created_on");
+            entity.Property(e => e.ErrorMessage)
+                .IsUnicode(false)
+                .HasColumnName("error_message");
+            entity.Property(e => e.Method)
+                .HasMaxLength(300)
+                .IsUnicode(false)
+                .HasColumnName("method");
+            entity.Property(e => e.Path)
+                .IsUnicode(false)
+                .HasColumnName("path");
+            entity.Property(e => e.StackTrace)
+                .IsUnicode(false)
+                .HasColumnName("stack_trace");
+            entity.Property(e => e.StpName)
+                .IsUnicode(false)
+                .HasColumnName("stp_name");
         });
 
         OnModelCreatingPartial(modelBuilder);

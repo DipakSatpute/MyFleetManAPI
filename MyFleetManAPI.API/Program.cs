@@ -3,8 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using MyFleetManAPI.API.Extensions;
 using MyFleetManAPI.DataAccess.Data;
 using MyFleetManAPI.Infrastructure.Configurations;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Serilog
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
 
 // Add infrastructure
 builder.Services.AddInfrastructure(builder.Configuration);
