@@ -9,8 +9,7 @@
   <ItemGroup>
     <Folder Include="Contracts\" />
     <Folder Include="Implementations\" />
-    <Folder Include="DTOs\" />
-    <Folder Include="Mappings\" />
+    <Folder Include="Mappings\EmployeeMapper\" />
   </ItemGroup>
 
 </Project>
