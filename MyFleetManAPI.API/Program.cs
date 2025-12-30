@@ -1,20 +1,15 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MyFleetManAPI.API.Extensions;
 using MyFleetManAPI.DataAccess.Data;
+using MyFleetManAPI.Infrastructure.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<MyFleetManDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("ClickToCallDB")));
-
-builder.Services
-    .AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<MyFleetManDbContext>()
-    .AddDefaultTokenProviders();
+// Add infrastructure
+builder.Services.AddInfrastructure(builder.Configuration);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 
 // Register Swagger
@@ -35,6 +30,16 @@ if (app.Environment.IsDevelopment())
         c.InjectStylesheet("/swagger-custom.css");
     });
 }
+
+//using (var scope = app.Services.CreateScope())
+//{
+//    await AdminSeeder.SeedAdminUserAsync(scope.ServiceProvider);
+//}
+using (var scope = app.Services.CreateScope())
+{
+    await SeedRoles.SeedAsync(scope.ServiceProvider);
+}
+
 
 app.UseAuthentication();
 app.UseAuthorization();
