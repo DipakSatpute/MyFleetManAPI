@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using MyFleetManAPI.API.Extensions;
 using MyFleetManAPI.DataAccess.Data;
 using MyFleetManAPI.Infrastructure.Configurations;
 using Serilog;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,17 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//builder.Services.AddRateLimiter(options =>
+//{
+//    options.AddFixedWindowLimiter("login", opt =>
+//    {
+//        opt.Window = TimeSpan.FromMinutes(1);
+//        opt.PermitLimit = 5;
+//        opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+//        opt.QueueLimit = 0;
+//    });
+//});
 
 var app = builder.Build();
 
@@ -49,6 +62,7 @@ using (var scope = app.Services.CreateScope())
 
 app.UseAuthentication();
 app.UseAuthorization();
+//app.UseRateLimiter();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
